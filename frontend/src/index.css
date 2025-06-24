@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+:root {
+  background-color: #f3f3f3;
+}
+
+@theme {
+  --color-blueish: #2185d5;
+  --color-lightdark: #3a4750;
+  --color-darkdark: #303841;
+  --color-whiteish: #f3f3f3;
+}
