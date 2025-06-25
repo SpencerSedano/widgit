@@ -1,23 +1,21 @@
-import { useDraggable } from "@dnd-kit/core";
-import { type ReactNode } from "react";
+import { useDraggable } from "@dnd-kit/react";
+import type { ReactNode } from "react";
 
-function Draggable({ children }: { children: ReactNode }) {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: "draggable",
+export function Draggable({
+  id,
+  children,
+}: {
+  id: string;
+  children: ReactNode;
+}) {
+  const { ref } = useDraggable({
+    id,
   });
-  const style = transform
-    ? {
-        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-      }
-    : undefined;
 
   return (
     <button
-      ref={setNodeRef}
-      style={style}
-      className="text-2xl border-4 p-4 cursor-pointer"
-      {...listeners}
-      {...attributes}
+      className="cursor-pointer rounded-lg bg-amber-950 p-4 text-4xl text-white"
+      ref={ref}
     >
       {children}
     </button>

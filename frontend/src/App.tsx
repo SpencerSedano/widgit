@@ -1,22 +1,31 @@
-import { DndContext } from "@dnd-kit/core";
+import { useState } from "react";
+
+import { DragDropProvider } from "@dnd-kit/react";
 
 import Draggable from "./Draggable";
 import Droppable from "./Droppable";
-import "./App.css";
 
 function App() {
+  const targets = ["A", "B", "C"];
+  const [target, setTarget] = useState<string | number | undefined>(undefined);
+  const draggable = <Draggable id="draggable">Drag me</Draggable>;
+
   return (
-    <>
-      <nav>
-        <ul>
-          <li className="rounded-lg bg-white p-4 shadow-lg">Menu</li>
-        </ul>
-      </nav>
-      <DndContext>
-        <Draggable>Drag me</Draggable>
-        <Droppable>Drop here</Droppable>
-      </DndContext>
-    </>
+    <DragDropProvider
+      onDragEnd={(event) => {
+        if (event.canceled) return;
+
+        setTarget(event.operation.target?.id);
+      }}
+    >
+      {!target ? draggable : null}
+
+      {targets.map((id) => (
+        <Droppable key={id} id={id}>
+          {target === id ? draggable : `Droppable ${id}`}
+        </Droppable>
+      ))}
+    </DragDropProvider>
   );
 }
 

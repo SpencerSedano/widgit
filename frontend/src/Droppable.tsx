@@ -1,16 +1,13 @@
-import { useDroppable } from "@dnd-kit/core";
-import { type ReactNode } from "react";
+import { useDroppable } from "@dnd-kit/react";
+import type { ReactNode } from "react";
 
-function Droppable({ children }: { children: ReactNode }) {
-  const { isOver, setNodeRef } = useDroppable({
-    id: "droppable",
+function Droppable({ id, children }: { id: string; children: ReactNode }) {
+  const { ref } = useDroppable({
+    id,
   });
-  const style = {
-    color: isOver ? "green" : undefined,
-  };
 
   return (
-    <div ref={setNodeRef} style={style}>
+    <div className="bg-amber-300" ref={ref} style={{ width: 300, height: 300 }}>
       {children}
     </div>
   );
